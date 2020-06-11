@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style>
+		body {
+			height: 100%;
+		}
+		ul > li {
+			list-style: none;
+			display: block;
+			height:150vh;
+			width:100%;
+			border: 2px solid #ddd;
+			box-sizing: border-box;
+			opacity: .7;
+		}
+
+		.left {
+			margin-left : -50px;
+		}
+
+		[lazy-load] {
+			height: 100vh;
+			width:100%;
+		}
+
+		.active {
+			background: red;
+			opacity: .7
+		}
+
+	</style>
+</head>
+<body>
+
+	<ul>
+		<li><img  alt="" lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></li>
+		<li><img  alt="" lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></li>
+		<li><img  alt="" lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></li>
+		<li><img  alt="" lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></li>
+		<li><img  alt="" lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></li>
+		<li>
+			<div lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></div>
+		</li>
+		<li>
+			<div lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></div>
+		</li>
+		<li>
+			<div lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></div>
+		</li>
+		<li>
+			<div lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></div>
+		</li>
+		<li>
+			<div lazy-load="https://www.discoclock.com/wp-content/uploads/2018/12/DOL007-ENJOY-THE-SILENCE.jpg"></div>
+		</li>
+	</ul>
+	
+	<script>
+
+		const conf =  { root: null, rootMargin: '0px',  threshold: 0.5 };
+
+		var observer = new IntersectionObserver(function(entries, self) {
+
+			entries.forEach(item => {
+			  	
+			  	if(item.intersectionRatio <= 0){ return; }
+
+		  		item = item.target;
+
+                const src = item.getAttribute('lazy-load');
+
+		  		item.localName == 'img' ? (item.src = src ) :  (item.style.backgroundImage = "url(" + src + ")" )
+		  	
+		  		self.unobserve(item);		  			
+			  	
+			  })
+		}, conf);
+
+		images = document.querySelectorAll('[lazy-load]');
+		images.forEach(image =>  observer.observe(image));
+
+	</script>
+</body>
+</html>
