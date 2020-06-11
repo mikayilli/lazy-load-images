@@ -8,6 +8,6 @@ add lazy-load attribute to div
 
 example
 
-<img lazy-load="your-image-path">
+#<img lazy-load="your-image-path">
 
-<div lazy-load="your-image-path"></div>
+#<div lazy-load="your-image-path"></div>
